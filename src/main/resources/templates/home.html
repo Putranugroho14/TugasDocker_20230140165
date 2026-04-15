@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Tugas Deploy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .navbar-brand .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .nav-link.logout {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .nav-link.logout:hover {
+            background: rgba(239, 68, 68, 0.25);
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 32px;
+        }
+
+        .welcome-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-section p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .data-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .count-badge {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 16px 24px;
+            font-size: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+        }
+
+        .empty-state .emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .empty-state p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .btn-add {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 14px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+        }
+
+        .row-number {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="logo">🚀</div>
+            <span>Tugas Deploy</span>
+        </div>
+        <div class="navbar-links">
+            <a href="/home" class="nav-link active">Home</a>
+            <a href="/form" class="nav-link">Form Input</a>
+            <a href="/logout" class="nav-link logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="welcome-section">
+            <h2>👋 Selamat Datang!</h2>
+            <p>Dashboard Data Mahasiswa — Data bersifat temporary (tidak disimpan di database)</p>
+            <span class="info-badge">NIM: 20230140165</span>
+        </div>
+
+        <div class="data-section">
+            <h3>
+                📋 Data Mahasiswa
+                <span class="count-badge" th:text="${#lists.size(mahasiswaList)} + ' data'"></span>
+            </h3>
+
+            <!-- Jika ada data -->
+            <div th:if="${!mahasiswaList.isEmpty()}" class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mhs, iterStat : ${mahasiswaList}">
+                            <td class="row-number" th:text="${iterStat.count}"></td>
+                            <td th:text="${mhs.nama}"></td>
+                            <td th:text="${mhs.nim}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Jika tidak ada data -->
+            <div th:if="${mahasiswaList.isEmpty()}" class="empty-state">
+                <div class="emoji">📭</div>
+                <h4>Belum ada data</h4>
+                <p>Silahkan tambahkan data mahasiswa melalui form input</p>
+                <a href="/form" class="btn-add">+ Tambah Data</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

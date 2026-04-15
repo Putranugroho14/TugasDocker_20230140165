@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Mahasiswa {
     private String nama;
     private String nim;
+    private String jenisKelamin;
 }

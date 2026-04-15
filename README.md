@@ -39,7 +39,8 @@ Hasil running container dari image yang ditarik (*pull*) dari Docker Hub teman.
 |:--:| :--- | :--- |
 | 7 | Halaman Login | ![Login Teman](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/31db4356-296f-4a79-8e02-fa9c1859bfe6" />
 ) |
-| 8 | Halaman Home (Awal) | ![Home Teman](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/5eec8286-f8fb-4b0c-a0f6-a46aac4b0f6f" />
+| 8 | Halaman Home (Awal) | ![Home Teman](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/98f454b1-2d46-4aa5-b58a-cae347df0fa2" />
+
 ) |
 | 9 | Halaman Form Input | ![Form Teman](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/52769545-b7d7-4951-ac48-49616f9c5000" />
 ) |
